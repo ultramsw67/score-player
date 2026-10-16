@@ -1,0 +1,5 @@
+수드 악보 연주 — 가져다 쓴 자료
+
+- OpenSheetMusicDisplay 1.9.9 (vendor/) — BSD 3-Clause, Copyright 2019 PhonicScore
+- 악기 소리 (sounds/) — FluidR3 GM (Frank Wen, MIT) · midi-js-soundfonts (CC BY 3.0), 자세한 내용 sounds/LICENSE.txt
+- 악보 인식기 homr — AGPL-3.0 (따로 설치, 이 폴더에 포함하지 않음)
