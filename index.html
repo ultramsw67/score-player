@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="sood-mode" content="pad">
-<meta name="sood-version" content="2.0.0">
+<meta name="sood-version" content="2.1.0">
 <meta name="robots" content="noindex, nofollow">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon.png">
@@ -64,8 +64,49 @@ main { max-width: 1500px; margin: 0 auto; padding: 18px 20px 60px; }
 .okmsg { color: var(--ok); }
 body.pad .pc-only { display: none !important; }
 #exportMsg { font-size: 13.5px; }
-.card .del { float: right; margin: -4px -6px 0 8px; padding: 3px 9px; font-size: 12.5px; color: var(--warn); }
-.card .del.armed { background: var(--warn); color: #fff; border-color: var(--warn); }
+.card .del { color: var(--warn); }
+.card .del.armed, button.armed { background: var(--warn); color: #fff; border-color: var(--warn); }
+/* 곡 관리 (v2.1) */
+#libMsg > div { padding: 6px 2px; }
+#libBar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 10px; }
+#libQ { padding: 7px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); flex: 0 1 230px; min-width: 150px; }
+#libBar .tip { font-size: 13px; color: var(--sub); }
+#setBar, #pickBar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 12px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 9px 12px; font-size: 14.5px; }
+#setBar { border-color: var(--brand); }
+#setBar .nm { font-size: 17px; font-weight: 700; color: var(--brand); }
+#setBar button, #pickBar button { padding: 5px 11px; font-size: 14px; }
+#setBar small, #pickBar small { color: var(--sub); font-size: 12.5px; flex-basis: 100%; }
+#setBar input, #pickBar input[type=text] { padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; width: 170px; }
+#freq { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 12px; font-size: 14px; color: var(--sub); }
+#freq button { padding: 4px 11px; font-size: 13.5px; border-radius: 16px; }
+#freq button i { font-style: normal; color: var(--brand-2); font-weight: 700; margin-left: 3px; }
+.card .ctop { display: flex; align-items: flex-start; gap: 8px; }
+.card .ctop h3 { flex: 1; }
+.card .ctop .pick { width: 19px; height: 19px; margin: 1px 0 0; flex: none; }
+.card .ord { flex: none; min-width: 24px; height: 24px; border-radius: 12px; background: var(--brand); color: #fff; font-size: 13px; font-weight: 700; display: grid; place-items: center; padding: 0 6px; }
+.card .star { flex: none; border: 0; background: none; padding: 0 2px; font-size: 20px; line-height: 1; color: #c9a227; }
+.card .tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+.card .tag { font-size: 12px; background: #eef2fb; color: var(--brand); border-radius: 8px; padding: 1px 8px; }
+.card .acts { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 6px; }
+.card .acts button { padding: 3px 9px; font-size: 12.5px; }
+.card.picked { border-color: var(--brand); box-shadow: inset 0 0 0 2px var(--brand); }
+.card .rename { width: 100%; font-size: 16px; font-weight: 700; padding: 4px 6px; border: 1px solid var(--brand); border-radius: 8px; }
+.setpop { margin-top: 9px; padding-top: 8px; border-top: 1px dashed var(--line); font-size: 14px; cursor: default; }
+.setpop label { display: flex; gap: 7px; align-items: center; padding: 3px 0; }
+.setpop .new { display: flex; gap: 6px; align-items: center; margin-top: 6px; flex-wrap: wrap; }
+.setpop .new input { flex: 1; min-width: 120px; padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; }
+.setpop button { padding: 4px 10px; font-size: 13px; }
+#trashBox { margin-top: 26px; }
+#trashBtn { font-size: 14px; color: var(--sub); }
+#trashList { margin-top: 8px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 6px 12px; }
+#trashList .row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 14px; flex-wrap: wrap; }
+#trashList .row:last-of-type { border-bottom: 0; }
+#trashList .row span { flex: 1; min-width: 160px; }
+#trashList .row small { color: var(--sub); }
+#trashList .row button { padding: 3px 10px; font-size: 13px; }
+#trashList p { color: var(--sub); font-size: 12.5px; margin: 6px 0 2px; }
+#setNav { font-size: 14px; color: var(--brand); display: flex; gap: 6px; align-items: center; }
+#setNav button { padding: 4px 10px; font-size: 13.5px; }
 .lib-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 28px 0 10px; }
 .lib-row .lib-title { margin: 0; }
 #exportAll { font-size: 14px; padding: 5px 11px; }
@@ -170,12 +211,26 @@ select { padding: 7px 8px; border: 1px solid var(--line); border-radius: 10px; b
     <div id="drop">
       <h2>PDF 악보를 여기에 끌어다 놓으세요</h2>
       <p>컴퓨터가 음표를 읽어 내 악기 소리로 연주합니다. 한 쪽에 1분쯤 걸립니다.</p>
-      <p>깨끗하게 인쇄된 파트보(한 줄 악보)를 가장 잘 읽습니다. JPG·PNG 사진도 됩니다.</p>
+      <p>깨끗하게 인쇄된 파트보(한 줄 악보)를 가장 잘 읽습니다. JPG·PNG 사진도 됩니다. 여러 개를 한 번에 넣어도 됩니다(한 곡씩 차례로 읽음).</p>
       <button class="primary" id="openBtn">📂 PDF 악보 고르기</button>
-      <input type="file" id="file" accept=".pdf,.png,.jpg,.jpeg" class="hidden">
+      <input type="file" id="file" accept=".pdf,.png,.jpg,.jpeg" multiple class="hidden">
     </div>
-    <div class="lib-row"><div class="lib-title">악보 보관함</div><button id="exportAll" class="pc-only" title="읽기가 끝난 악보 전부를 파일 하나로 만들어 패드판으로 옮깁니다">📱 전부 패드로 보내기</button><span id="exportMsg"></span></div>
+    <div class="lib-row"><div class="lib-title">악보 보관함 <span id="libCount"></span></div><button id="exportAll" class="pc-only" title="읽기가 끝난 악보 전부를 파일 하나로 만들어 패드판으로 옮깁니다">📱 전부 패드로 보내기</button><span id="exportMsg"></span></div>
+    <div id="libBar">
+      <select id="libFilter" title="어떤 악보를 볼지 — 연주 목록도 여기서 고릅니다"></select>
+      <select id="libSort" title="늘어놓는 순서">
+        <option value="new">새로 넣은 순</option><option value="title">제목 순</option>
+        <option value="plays">많이 연주한 순</option><option value="recent">최근 연주한 순</option>
+      </select>
+      <input id="libQ" type="search" placeholder="🔍 제목으로 찾기">
+      <button id="pickBtn" title="여러 곡을 골라 한꺼번에 연주 목록에 넣거나 지웁니다">☑ 여러 곡 고르기</button>
+    </div>
+    <div id="pickBar" class="hidden"></div>
+    <div id="setBar" class="hidden"></div>
+    <div id="freq" class="hidden"></div>
+    <div id="libMsg"></div>
     <div id="list"><div class="empty">불러오는 중…</div></div>
+    <div id="trashBox" class="pc-only hidden"><button id="trashBtn"></button><div id="trashList" class="hidden"></div></div>
   </section>
 
   <!-- 연주 -->
@@ -264,6 +319,7 @@ select { padding: 7px 8px; border: 1px solid var(--line); border-radius: 10px; b
     <div id="info">
       <div class="brand small"><img src="img/sood-192.jpg" alt="수트와후드 대표 이미지" width="40" height="40"><div class="wm" aria-label="수트와후드">수트와후드</div></div>
       <h2 id="title"></h2>
+      <span id="setNav" class="hidden"></span>
       <span id="pos"></span>
       <span id="chord" title="선율로 짐작한 코드 (악보에 적힌 음 기준)"></span>
       <span id="hint">음표를 누르면 거기서부터 연주합니다 · 스페이스바 = 연주/멈춤</span>
@@ -1033,16 +1089,23 @@ const api = PAD ? {
   async pdf(id, blob, name) { return { blob, name: name + '.pdf', pad: true }; },
   async xmlFile(id, name) { await shareOrSave(new Blob([await this.xml(id)], { type: 'application/xml' }), name + '.musicxml', 'application/xml'); },
   remove(id) { return padTx('readwrite', st => st.delete(id)); },
+  async trash() { return []; },                                        // 패드는 지우면 바로 없어짐 (노트북에 원본이 남아 있으므로)
   async importFile(file) {                                             // 「📱 패드로 보내기」 파일 → 패드 보관함
     let j; try { j = JSON.parse(await file.text()); } catch (e) { throw new Error(`「${file.name}」 은 수드 악보 파일이 아닙니다`); }
     const items = j && j.format === 'sood-scores' ? j.items : j && j.format === 'sood-score' ? [j] : null;
     if (!items || !items.length) throw new Error(`「${file.name}」 은 수드 악보 파일이 아닙니다 (노트북에서 「📱 패드로 보내기」로 만든 파일을 넣으세요)`);
-    const have = new Set((await padAll()).map(r => r.id)); let renewed = 0, lastId = null;
+    const have = new Map((await padAll()).map(r => [r.id, r])); let renewed = 0, lastId = null;
     for (const it of items) {
       if (!it.meta || !it.meta.id || !it.xml) continue;
       const pages = (it.pages || []).map(u => b64ToAb(u));                 // 그림은 바이트 그대로 (Blob 을 못 담는 브라우저도 있어서)
       const meta = Object.assign({}, it.meta, { status: 'ready', pages: pages.length, imported: new Date().toISOString() });
-      if (have.has(meta.id)) renewed++;
+      const old = have.get(meta.id);
+      if (old) {                                                          // v2.1: 패드에서 연주한 횟수는 노트북 것으로 덮어쓰지 않고 큰 쪽을 남김
+        renewed++;
+        const om = old.meta || {};
+        if ((om.plays || 0) > (meta.plays || 0)) meta.plays = om.plays;
+        if (String(om.lastPlayed || '') > String(meta.lastPlayed || '')) meta.lastPlayed = om.lastPlayed;
+      }
       await padPut({ id: meta.id, meta, xml: it.xml, pages }); lastId = meta.id;
     }
     return { count: items.length, renewed, lastId };
@@ -1059,47 +1122,280 @@ const api = PAD ? {
   async upload(file, inst) { return (await fetch(`/api/upload?name=${encodeURIComponent(file.name)}&inst=${inst}&instName=${encodeURIComponent(INSTS[inst].name)}`, { method: 'POST', body: file })).json(); },
   async redo(id, enhance) { return fetch(`/api/scores/${id}/redo?enhance=${enhance ? 1 : 0}`, { method: 'POST' }); },
   async exportPad(ids) { return (await fetch('/api/export', { method: 'POST', body: JSON.stringify({ ids }) })).json(); },
+  async remove(id) { const r = await (await fetch(`/api/scores/${id}/delete`, { method: 'POST' })).json(); if (r.error) throw new Error(r.error); return r; },   // 「지운 악보」 폴더로 옮김
+  async trash() { return (await fetch('/api/trash')).json(); },
+  async restore(id) { const r = await (await fetch(`/api/trash/${id}/restore`, { method: 'POST' })).json(); if (r.error) throw new Error(r.error); return r; },
 };
 function saveMeta(ch) { if (!cur) return; Object.assign(cur, ch); return api.meta(cur.id, ch); }   // 악보마다 기억 (PC = meta.json · 패드 = 패드 안)
 
-/* ---------- 보관함 ---------- */
-let pollT = null, waitOpen = null;
-async function refreshList() {
-  let items = [];
-  try { items = await api.list(); } catch (e) { $('list').innerHTML = PAD ? '<div class="empty err">패드 보관함을 열지 못했습니다: ' + esc(e.message) + '</div>' : '<div class="empty err">프로그램(서버)이 꺼져 있습니다. 바탕화면 「수드 악보 연주」를 다시 실행하세요.</div>'; return; }
-  const box = $('list'); box.innerHTML = '';
-  if (!items.length) box.innerHTML = PAD ? '<div class="empty">아직 패드에 넣은 악보가 없습니다. 노트북에서 「📱 패드로 보내기」로 만든 파일을 위에서 넣으세요.</div>' : '<div class="empty">아직 읽은 악보가 없습니다. 위에 PDF 를 넣어 보세요.</div>';
-  let busy = false;
-  for (const s of items) {
-    const d = document.createElement('div'); d.className = 'card';
-    const instName = INSTS[s.inst] ? INSTS[s.inst].name : '';
-    let st = '';
-    if (s.status === 'ready') st = `<span style="color:var(--ok)">● 연주 준비됨</span> · ${s.measures}마디 · ${s.pages}쪽` + (s.failedPages && s.failedPages.length ? ` <span class="err">(${s.failedPages.join('·')}쪽 못 읽음)</span>` : '');
-    else if (s.status === 'error') st = `<span class="err">● ${esc(s.error || '실패')}</span>`;
-    else {
-      busy = true;
-      const pct = s.pages ? Math.round(((s.done || 0) + 0.5) / s.pages * 100) : 5;
-      st = `${esc(s.step || '준비 중')}${s.eta ? ` · 약 ${Math.ceil(s.eta / 60)}분 남음` : ''}<div class="bar"><i style="width:${pct}%"></i></div>`;
-    }
-    d.innerHTML = `<h3>${esc(s.title)}</h3><div class="m">${esc(s.created || '')}${instName ? ' · ' + esc(instName) : ''}</div><div class="st">${st}</div>`;
-    d.onclick = () => { if (s.status === 'ready') openScore(s.id); else if (s.status === 'error') redo(s.id, false); };
-    if (PAD) {                                                         // 패드: 보관함에서 지우기 (두 번 눌러야)
-      const x = document.createElement('button'); x.className = 'del'; x.textContent = '지우기';
-      x.onclick = async e => {
-        e.stopPropagation();
-        if (!x.classList.contains('armed')) { x.classList.add('armed'); x.textContent = '한 번 더 누르면 지움'; setTimeout(() => { x.classList.remove('armed'); x.textContent = '지우기'; }, 4000); return; }
-        await api.remove(s.id); refreshList();
-      };
-      d.prepend(x);
-    }
-    box.appendChild(d);
-    if (waitOpen === s.id && s.status === 'ready') { waitOpen = null; openScore(s.id); }
-  }
+/* ---------- 보관함 ----------
+   v2.1 곡 관리 (2026-10-18 지시 "악보 추가 삭제, 연주 목록 묶음, 자주 연주 한 곡 등 연주 곡 관리 기능 보강해줘"):
+   여러 파일 한 번에 넣기 · 지우기(PC 는 「지운 악보」 폴더로 옮겨 되살릴 수 있게) · 이름 바꾸기 · ⭐ 즐겨찾기 · 연주 횟수(plays·lastPlayed)
+   · 연주 목록 = 악보마다 meta.sets {목록 이름: 순서}. 따로 저장소를 두지 않아 패드로 보내기에도 그대로 따라간다.
+   이것들은 '악보 설정'이 아니라서 💾 설정 저장·↺ 초기화(snapSettings)에 넣지 않는다 */
+let pollT = null, waitOpen = null, libItems = [], picking = false, openSet = null;
+const picked = new Set();
+const LIB_UI = { filter: 'all', sort: 'new', q: '' };
+try { Object.assign(LIB_UI, JSON.parse(localStorage.getItem('ssp-lib') || '{}'), { q: '' }); } catch (e) {}
+function saveLibUi() { try { localStorage.setItem('ssp-lib', JSON.stringify({ filter: LIB_UI.filter, sort: LIB_UI.sort })); } catch (e) {} }
+const setsOf = s => s && s.sets && typeof s.sets === 'object' && !Array.isArray(s.sets) ? s.sets : {};
+function allSets() { const m = new Map(); for (const s of libItems) for (const n of Object.keys(setsOf(s))) m.set(n, (m.get(n) || 0) + 1); return [...m].sort((a, b) => a[0].localeCompare(b[0], 'ko', { numeric: true })); }
+function setMembers(name) { return libItems.filter(s => name in setsOf(s)).sort((a, b) => setsOf(a)[name] - setsOf(b)[name] || String(a.id).localeCompare(String(b.id))); }
+const inSetView = () => LIB_UI.filter.startsWith('set:') ? LIB_UI.filter.slice(4) : null;
+async function patch(s, ch) { Object.assign(s, ch); if (cur && cur.id === s.id) Object.assign(cur, ch); return api.meta(s.id, ch); }
+function cleanSetName(v) { return String(v || '').replace(/\s+/g, ' ').trim().slice(0, 30); }
+async function addToSet(name, ss) {                                     // 목록 끝에 차례로 붙인다 (이미 든 곡은 그대로)
+  let n = setMembers(name).reduce((m, s) => Math.max(m, +setsOf(s)[name] || 0), 0);
+  for (const s of ss) if (!(name in setsOf(s))) await patch(s, { sets: Object.assign({}, setsOf(s), { [name]: ++n }) });
+}
+async function dropFromSet(name, ss) { for (const s of ss) if (name in setsOf(s)) { const x = Object.assign({}, setsOf(s)); delete x[name]; await patch(s, { sets: x }); } }
+async function renumber(name, ordered) { for (let i = 0; i < ordered.length; i++) if (setsOf(ordered[i])[name] !== i + 1) await patch(ordered[i], { sets: Object.assign({}, setsOf(ordered[i]), { [name]: i + 1 }) }); }
+const shortDay = t => { const m = String(t || '').match(/^\d{4}-(\d\d)-(\d\d)/); return m ? `${+m[1]}/${+m[2]}` : ''; };
+function viewItems() {
+  const f = LIB_UI.filter, q = LIB_UI.q.trim().toLowerCase(), set = inSetView();
+  let xs = set ? setMembers(set) : f === 'fav' ? libItems.filter(s => s.fav) : f === 'freq' ? libItems.filter(s => s.plays > 0) : libItems.slice();
+  if (q) xs = xs.filter(s => String(s.title || '').toLowerCase().includes(q));
+  if (set) return xs;                                                  // 연주 목록은 정해 둔 순서 그대로
+  const byId = (a, b) => String(b.id).localeCompare(String(a.id));
+  const cmp = {
+    new: byId,
+    title: (a, b) => String(a.title).localeCompare(String(b.title), 'ko', { numeric: true }),
+    plays: (a, b) => (b.plays || 0) - (a.plays || 0) || String(b.lastPlayed || '').localeCompare(String(a.lastPlayed || '')) || byId(a, b),
+    recent: (a, b) => String(b.lastPlayed || '').localeCompare(String(a.lastPlayed || '')) || byId(a, b),
+  };
+  return xs.sort(cmp[f === 'freq' ? 'plays' : LIB_UI.sort] || byId);
+}
+const libEditing = () => !!document.querySelector('#list .rename, #list .setpop, #setBar input');
+async function refreshList(fromPoll) {
   clearTimeout(pollT);
-  if (busy) pollT = setTimeout(refreshList, 2000);
+  if (fromPoll && libEditing()) { pollT = setTimeout(() => refreshList(true), 1500); return; }   // 이름을 고치거나 목록 칸이 열려 있으면 다시 그리지 않음
+  try { libItems = await api.list(); } catch (e) { $('list').innerHTML = PAD ? '<div class="empty err">패드 보관함을 열지 못했습니다: ' + esc(e.message) + '</div>' : '<div class="empty err">프로그램(서버)이 꺼져 있습니다. 바탕화면 「수드 악보 연주」를 다시 실행하세요.</div>'; return; }
+  renderLib();
+  trashUi();
+  if (libItems.some(s => s.status !== 'ready' && s.status !== 'error')) pollT = setTimeout(() => refreshList(true), 2000);
+  const w = waitOpen && libItems.find(s => s.id === waitOpen && s.status === 'ready');
+  if (w) { waitOpen = null; openSet = null; openScore(w.id); }
+}
+function renderLib() {
+  const sets = allSets(), set0 = inSetView();
+  if (set0 && !sets.some(([n]) => n === set0)) LIB_UI.filter = 'all';  // 목록이 없어졌으면 전체로
+  if (!['all', 'fav', 'freq'].includes(LIB_UI.filter) && !inSetView()) LIB_UI.filter = 'all';
+  const set = inSetView();
+  for (const id of [...picked]) if (!libItems.some(s => s.id === id)) picked.delete(id);
+  $('libCount').textContent = libItems.length ? `${libItems.length}곡` : '';
+  // 보기 고르기 (전체·즐겨찾기·자주 연주·연주 목록들)
+  const fs = $('libFilter'); fs.innerHTML = '';
+  const opt = (v, t) => { const o = document.createElement('option'); o.value = v; o.textContent = t; fs.appendChild(o); };
+  opt('all', `전체 (${libItems.length})`);
+  opt('fav', `⭐ 즐겨찾기 (${libItems.filter(s => s.fav).length})`);
+  opt('freq', `🔥 자주 연주한 곡 (${libItems.filter(s => s.plays > 0).length})`);
+  for (const [n, c] of sets) opt('set:' + n, `📋 ${n} (${c}곡)`);
+  fs.value = LIB_UI.filter;
+  $('libSort').value = LIB_UI.sort; $('libSort').disabled = !!set || LIB_UI.filter === 'freq';
+  $('libQ').value = LIB_UI.q;
+  $('pickBtn').textContent = picking ? '✓ 고르기 끝내기' : '☑ 여러 곡 고르기';
+  setBarUi(set); pickBarUi(set); freqUi();
+  // 카드
+  const box = $('list'), xs = viewItems(); box.innerHTML = '';
+  if (!libItems.length) box.innerHTML = PAD ? '<div class="empty">아직 패드에 넣은 악보가 없습니다. 노트북에서 「📱 패드로 보내기」로 만든 파일을 위에서 넣으세요.</div>' : '<div class="empty">아직 읽은 악보가 없습니다. 위에 PDF 를 넣어 보세요.</div>';
+  else if (!xs.length) box.innerHTML = `<div class="empty">${LIB_UI.q ? '찾는 제목의 악보가 없습니다.' : LIB_UI.filter === 'fav' ? '아직 즐겨찾기한 악보가 없습니다. 카드 오른쪽 위 ☆ 를 누르세요.' : '아직 연주한 악보가 없습니다. 악보를 열어 ▶ 연주하면 여기에 쌓입니다.'}</div>`;
+  xs.forEach((s, i) => box.appendChild(card(s, set, i, xs.length)));
+}
+function card(s, set, i, n) {
+  const d = document.createElement('div'); d.className = 'card' + (picking && picked.has(s.id) ? ' picked' : ''); d.dataset.id = s.id;
+  const instName = INSTS[s.inst] ? INSTS[s.inst].name : '';
+  let st = '';
+  if (s.status === 'ready') st = `<span style="color:var(--ok)">● 연주 준비됨</span> · ${s.measures}마디 · ${s.pages}쪽` + (s.failedPages && s.failedPages.length ? ` <span class="err">(${s.failedPages.join('·')}쪽 못 읽음)</span>` : '');
+  else if (s.status === 'error') st = `<span class="err">● ${esc(s.error || '실패')}</span>`;
+  else {
+    const pct = s.pages ? Math.round(((s.done || 0) + 0.5) / s.pages * 100) : 5;
+    st = `${esc(s.step || '준비 중')}${s.eta ? ` · 약 ${Math.ceil(s.eta / 60)}분 남음` : ''}<div class="bar"><i style="width:${pct}%"></i></div>`;
+  }
+  const plays = s.plays > 0 ? ` · 연주 ${s.plays}번${s.lastPlayed ? ` (마지막 ${shortDay(s.lastPlayed)})` : ''}` : '';
+  const tags = Object.keys(setsOf(s)).filter(x => x !== set).map(x => `<span class="tag">📋 ${esc(x)}</span>`).join('');
+  d.innerHTML = `<div class="ctop">${picking ? `<input type="checkbox" class="pick"${picked.has(s.id) ? ' checked' : ''}>` : ''}${set ? `<span class="ord">${i + 1}</span>` : ''}<h3>${esc(s.title)}</h3><button class="star" title="${s.fav ? '즐겨찾기 빼기' : '즐겨찾기'}">${s.fav ? '★' : '☆'}</button></div>`
+    + `<div class="m">${esc(s.created || '')}${instName ? ' · ' + esc(instName) : ''}${plays}</div><div class="st">${st}</div>${tags ? `<div class="tags">${tags}</div>` : ''}<div class="acts"></div>`;
+  d.onclick = e => {
+    if (e.target.closest('.setpop, .rename')) return;
+    if (picking) { picked.has(s.id) ? picked.delete(s.id) : picked.add(s.id); renderLib(); return; }
+    if (s.status === 'ready') { openSet = set; openScore(s.id); } else if (s.status === 'error') redo(s.id, false);
+  };
+  const btn = (txt, title, fn, cls) => { const b = document.createElement('button'); b.textContent = txt; b.title = title; if (cls) b.className = cls; b.onclick = e => { e.stopPropagation(); fn(b); }; d.querySelector('.acts').appendChild(b); return b; };
+  d.querySelector('.star').onclick = async e => { e.stopPropagation(); await patch(s, { fav: !s.fav }); renderLib(); };
+  if (picking) return d;
+  if (set) {
+    const ms = setMembers(set);
+    const move = async k => { const j = ms.findIndex(x => x.id === s.id), t = j + k; if (t < 0 || t >= ms.length) return; [ms[j], ms[t]] = [ms[t], ms[j]]; await renumber(set, ms); renderLib(); };
+    btn('▲', '앞으로', () => move(-1)).disabled = i === 0;
+    btn('▼', '뒤로', () => move(1)).disabled = i === n - 1;
+    btn('목록에서 빼기', '이 연주 목록에서만 뺍니다 (악보는 그대로)', async () => { await dropFromSet(set, [s]); renderLib(); });
+  }
+  btn('📋 연주 목록', '이 곡을 연주 목록에 넣거나 뺍니다', () => setPop(d, s));
+  btn('✏️ 이름', '보관함에 보이는 제목을 바꿉니다', () => renameCard(d, s));
+  btn('🗑 지우기', PAD ? '이 패드에서 지웁니다 (노트북 보관함은 그대로)' : '「지운 악보」로 옮깁니다 — 아래에서 되살릴 수 있습니다', b => {
+    if (!b.classList.contains('armed')) { b.classList.add('armed'); b.textContent = '한 번 더 누르면 지움'; setTimeout(() => { if (b.isConnected) { b.classList.remove('armed'); b.textContent = '🗑 지우기'; } }, 4000); return; }
+    removeScores([s]);
+  }, 'del');
+  return d;
+}
+async function removeScores(ss) {
+  const bad = [];
+  for (const s of ss) { try { await api.remove(s.id); picked.delete(s.id); } catch (e) { bad.push(`${s.title}: ${e.message}`); } }
+  await refreshList();
+  const ok = ss.length - bad.length;
+  if (ok) infoBox(`${ok}곡을 지웠습니다` + (PAD ? '' : ' — 맨 아래 「지운 악보」에서 되살릴 수 있습니다'));
+  if (bad.length) alertBox(bad.join(' · '));
+}
+function renameCard(d, s) {
+  const h = d.querySelector('h3'), inp = document.createElement('input');
+  inp.className = 'rename'; inp.value = s.title || ''; inp.maxLength = 80; h.replaceWith(inp); inp.focus(); inp.select();
+  let done = false;
+  const fin = async ok => {
+    if (done) return; done = true;
+    const v = inp.value.replace(/\s+/g, ' ').trim();
+    if (ok && v && v !== s.title) await patch(s, { title: v });
+    renderLib();
+  };
+  inp.onkeydown = e => { if (e.key === 'Enter') fin(true); else if (e.key === 'Escape') fin(false); };
+  inp.onblur = () => fin(true);
+  inp.onclick = e => e.stopPropagation();
+}
+function setPop(d, s) {
+  const old = d.querySelector('.setpop'); if (old) { old.remove(); return; }
+  const p = document.createElement('div'); p.className = 'setpop';
+  const sets = allSets();
+  p.innerHTML = (sets.length ? sets.map(([n]) => `<label><input type="checkbox" data-n="${esc(n)}"${n in setsOf(s) ? ' checked' : ''}> 📋 ${esc(n)}</label>`).join('') : '<div style="color:var(--sub)">아직 연주 목록이 없습니다. 아래에 이름을 적어 만드세요.</div>')
+    + `<div class="new"><input type="text" maxlength="30" placeholder="새 목록 이름 (예: 11월 정기연주회)"><button class="primary">만들고 넣기</button><button class="close">닫기</button></div>`;
+  p.onclick = e => e.stopPropagation();
+  for (const c of p.querySelectorAll('input[type=checkbox]')) c.onchange = async () => { const n = c.dataset.n; c.checked ? await addToSet(n, [s]) : await dropFromSet(n, [s]); renderLib(); };
+  const inp = p.querySelector('.new input');
+  const make = async () => { const n = cleanSetName(inp.value); if (!n) { inp.focus(); return; } await addToSet(n, [s]); renderLib(); };
+  p.querySelector('.new .primary').onclick = make;
+  inp.onkeydown = e => { if (e.key === 'Enter') make(); else if (e.key === 'Escape') p.remove(); };
+  p.querySelector('.close').onclick = () => p.remove();
+  d.appendChild(p); inp.focus();
+}
+function setBarUi(set) {
+  const b = $('setBar');
+  if (!set) { b.classList.add('hidden'); b.innerHTML = ''; return; }
+  const ms = setMembers(set), ready = ms.filter(s => s.status === 'ready');
+  b.classList.remove('hidden');
+  b.innerHTML = `<span>📋</span><span class="nm">${esc(set)}</span><span>${ms.length}곡</span>`
+    + `<button class="primary" data-a="play"${ready.length ? '' : ' disabled'}>▶ 1번 곡부터 열기</button><button data-a="ren">이름 바꾸기</button>`
+    + `<button data-a="pad" class="pc-only">📱 이 목록 패드로 보내기</button><button data-a="del">목록 지우기</button>`
+    + `<small>카드의 ▲▼로 연주 순서를 바꿉니다. 곡을 열면 위에 「다음 곡 ▶」이 나옵니다. 목록을 지워도 악보는 보관함에 남습니다.</small>`;
+  const by = a => b.querySelector(`[data-a="${a}"]`);
+  by('play').onclick = () => { openSet = set; openScore(ready[0].id); };
+  by('ren').onclick = () => {
+    const sp = b.querySelector('.nm'), inp = document.createElement('input'); inp.type = 'text'; inp.maxLength = 30; inp.value = set; sp.replaceWith(inp); inp.focus(); inp.select();
+    let done = false;
+    const fin = async ok => {
+      if (done) return; done = true;
+      const v = cleanSetName(inp.value);
+      if (ok && v && v !== set) {                                       // 같은 이름 목록이 있으면 그 뒤에 이어 붙인다
+        const tail = setMembers(v).filter(s => !(set in setsOf(s)));
+        const order = tail.concat(ms);
+        for (const s of ms) { const x = Object.assign({}, setsOf(s)); delete x[set]; s.sets = x; }
+        for (let i = 0; i < order.length; i++) await patch(order[i], { sets: Object.assign({}, setsOf(order[i]), { [v]: i + 1 }) });
+        LIB_UI.filter = 'set:' + v; saveLibUi();
+      }
+      renderLib();
+    };
+    inp.onkeydown = e => { if (e.key === 'Enter') fin(true); else if (e.key === 'Escape') fin(false); };
+    inp.onblur = () => fin(true);
+  };
+  by('pad').onclick = async () => { const m = $('exportMsg'); m.className = ''; m.textContent = '… 만드는 중'; try { m.textContent = await exportPad(ready.map(s => s.id)); m.className = 'okmsg'; } catch (e) { m.textContent = '패드로 보내기 실패: ' + e.message; m.className = 'err'; } };
+  by('del').onclick = async () => {
+    const x = by('del');
+    if (!x.classList.contains('armed')) { x.classList.add('armed'); x.textContent = '한 번 더 누르면 목록 지움 (악보는 남음)'; setTimeout(() => { if (x.isConnected) { x.classList.remove('armed'); x.textContent = '목록 지우기'; } }, 4000); return; }
+    await dropFromSet(set, ms); LIB_UI.filter = 'all'; saveLibUi(); renderLib(); infoBox(`연주 목록 「${set}」을 지웠습니다 (악보는 그대로)`);
+  };
+}
+function pickBarUi(set) {
+  const b = $('pickBar');
+  if (!picking) { b.classList.add('hidden'); b.innerHTML = ''; return; }
+  const sets = allSets().filter(([n]) => n !== set), sel = libItems.filter(s => picked.has(s.id));
+  b.classList.remove('hidden');
+  b.innerHTML = `<b>${sel.length}곡 고름</b><button data-a="all">보이는 곡 모두 고르기</button><button data-a="none">고른 것 풀기</button>`
+    + `<span>→</span><select data-a="to">${sets.map(([n]) => `<option value="${esc(n)}">📋 ${esc(n)}</option>`).join('')}<option value="">＋ 새 연주 목록</option></select>`
+    + `<input type="text" data-a="name" maxlength="30" placeholder="새 목록 이름"><button class="primary" data-a="add">목록에 넣기</button>`
+    + (set ? `<button data-a="out">「${esc(set)}」에서 빼기</button>` : '') + `<button data-a="del" class="del">고른 곡 지우기</button>`
+    + `<small>카드를 눌러 고릅니다. 넣는 순서 = 지금 보이는 순서(목록 끝에 붙음).</small>`;
+  const by = a => b.querySelector(`[data-a="${a}"]`);
+  const toSel = by('to'), nm = by('name');
+  const syncName = () => { nm.style.display = toSel.value ? 'none' : ''; };
+  syncName(); toSel.onchange = syncName;
+  for (const a of ['add', 'out', 'del']) if (by(a)) by(a).disabled = !sel.length;
+  by('all').onclick = () => { for (const s of viewItems()) picked.add(s.id); renderLib(); };
+  by('none').onclick = () => { picked.clear(); renderLib(); };
+  const ordered = () => { const v = viewItems().filter(s => picked.has(s.id)); return v.concat(sel.filter(s => !v.includes(s))); };
+  by('add').onclick = async () => {
+    const n = toSel.value || cleanSetName(nm.value);
+    if (!n) { nm.focus(); return; }
+    const ss = ordered(); await addToSet(n, ss);
+    picked.clear(); picking = false; LIB_UI.filter = 'set:' + n; LIB_UI.q = ''; saveLibUi(); renderLib(); infoBox(`${ss.length}곡을 연주 목록 「${n}」에 넣었습니다`);
+  };
+  if (by('out')) by('out').onclick = async () => { await dropFromSet(set, sel); picked.clear(); renderLib(); };
+  by('del').onclick = () => {
+    const x = by('del');
+    if (!x.classList.contains('armed')) { x.classList.add('armed'); x.textContent = `한 번 더 누르면 ${sel.length}곡 지움`; setTimeout(() => { if (x.isConnected) { x.classList.remove('armed'); x.textContent = '고른 곡 지우기'; } }, 4000); return; }
+    picking = false; removeScores(sel);
+  };
+}
+function freqUi() {                                                    // 「전체」에서 자주 연주한 곡 5개를 바로 열 수 있게
+  const b = $('freq'), top = LIB_UI.filter === 'all' && !LIB_UI.q && !picking ? libItems.filter(s => s.plays > 0 && s.status === 'ready').sort((a, c) => c.plays - a.plays || String(c.lastPlayed || '').localeCompare(String(a.lastPlayed || ''))).slice(0, 5) : [];
+  b.classList.toggle('hidden', !top.length); b.innerHTML = '';
+  if (!top.length) return;
+  b.append('🔥 자주 연주:');
+  for (const s of top) { const x = document.createElement('button'); x.innerHTML = `${esc(s.title)}<i>${s.plays}</i>`; x.title = `${s.plays}번 연주 · 마지막 ${shortDay(s.lastPlayed)}`; x.onclick = () => { openSet = null; openScore(s.id); }; b.appendChild(x); }
+}
+let trashOpen = false;
+async function trashUi() {
+  if (PAD) return;
+  let t = []; try { t = await api.trash(); } catch (e) {}
+  $('trashBox').classList.toggle('hidden', !t.length);
+  $('trashBtn').textContent = `🗑 지운 악보 ${t.length}곡 ${trashOpen ? '▲' : '▼'}`;
+  const L = $('trashList'); L.classList.toggle('hidden', !trashOpen); L.innerHTML = '';
+  for (const s of t) {
+    const r = document.createElement('div'); r.className = 'row';
+    r.innerHTML = `<span>${esc(s.title)} <small>· 지운 날 ${esc(shortDay(s.deleted))}</small></span><button>되살리기</button>`;
+    r.querySelector('button').onclick = async () => { try { await api.restore(s.id); await refreshList(); infoBox(`「${s.title}」을 보관함으로 되살렸습니다`); } catch (e) { alertBox(e.message); } };
+    L.appendChild(r);
+  }
+  const p = document.createElement('p'); p.textContent = '지운 악보는 바탕화면 › 수드 악보 연주 › 지운 악보 폴더에 남아 있습니다. 완전히 없애려면 그 폴더에서 지우세요.'; L.appendChild(p);
+}
+$('trashBtn').onclick = () => { trashOpen = !trashOpen; trashUi(); };
+$('libFilter').onchange = () => { LIB_UI.filter = $('libFilter').value; saveLibUi(); renderLib(); };
+$('libSort').onchange = () => { LIB_UI.sort = $('libSort').value; saveLibUi(); renderLib(); };
+$('libQ').oninput = () => { LIB_UI.q = $('libQ').value; renderLib(); $('libQ').focus(); };
+$('pickBtn').onclick = () => { picking = !picking; if (!picking) picked.clear(); renderLib(); };
+function setNavUi() {                                                   // 연주 목록에서 연 곡: 위에 「◀ 이전 곡 · 다음 곡 ▶」
+  const el = $('setNav'), ms = openSet ? setMembers(openSet).filter(s => s.status === 'ready') : [], i = cur ? ms.findIndex(s => s.id === cur.id) : -1;
+  if (i < 0) { el.classList.add('hidden'); el.innerHTML = ''; return; }
+  el.innerHTML = `📋 ${esc(openSet)} <b>${i + 1}/${ms.length}</b><button data-d="-1"${i ? '' : ' disabled'}>◀ 이전 곡</button><button data-d="1"${i < ms.length - 1 ? '' : ' disabled'}>다음 곡 ▶</button>`;
+  for (const b of el.querySelectorAll('button')) b.onclick = () => openScore(ms[i + +b.dataset.d].id);
+  el.classList.remove('hidden');
+}
+// 연주 횟수: 악보를 열 때마다 처음 연주할 때 한 번만 센다 (마디 반복·악기 바꾸기·음표 누르기로 다시 시작해도 늘지 않게)
+let countedId = null;
+function countPlay() {
+  if (!cur || countedId === cur.id) return;
+  if (navigator.webdriver && !window.__countPlays) return;            // 자동 검사 브라우저는 세지 않음 (검사가 실제 연주 횟수를 늘리지 않게, t17 만 켜서 확인)
+  countedId = cur.id;
+  const d = new Date(), p = n => String(n).padStart(2, '0');
+  saveMeta({ plays: (cur.plays || 0) + 1, lastPlayed: `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}` });
 }
 function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]); }
-async function upload(file) {
+async function uploadMany(fs) {
+  if (!fs.length) return;
+  if (PAD) { for (const f of fs) await upload(f); return; }
+  const ok = fs.filter(f => /\.(pdf|png|jpe?g)$/i.test(f.name)), skip = fs.filter(f => !ok.includes(f));
+  for (const f of ok) await upload(f, ok.length === 1);
+  if (ok.length > 1) infoBox(`${ok.length}곡을 넣었습니다. 한 곡씩 차례로 음표를 읽습니다 (한 쪽에 1분쯤)`);
+  if (skip.length) alertBox(`PDF·JPG·PNG 파일만 읽을 수 있어 뺐습니다: ${skip.map(f => f.name).join(', ')}`);
+}
+async function upload(file, autoOpen = true) {
+  LIB_UI.filter = 'all'; LIB_UI.q = ''; picking = false;               // 새로 넣은 곡이 보이게
   if (PAD) {                                                           // 패드: 「📱 패드로 보내기」 파일 넣기
     showLib();
     try { const r = await api.importFile(file); await refreshList(); infoBox(`${r.count}곡을 넣었습니다` + (r.renewed ? ` (이미 있던 ${r.renewed}곡은 노트북 것으로 새로 바꿈)` : '')); }
@@ -1111,27 +1407,31 @@ async function upload(file) {
   const inst = detectInst(file.name);
   const meta = await api.upload(file, inst);
   if (meta.error) { alertBox(meta.error); return; }
-  waitOpen = meta.id;
-  refreshList();
+  if (autoOpen) waitOpen = meta.id;
+  await refreshList();
 }
-function alertBox(msg) { const el = document.createElement('div'); el.className = 'empty err'; el.textContent = msg; $('list').prepend(el); }
-function infoBox(msg) { const el = document.createElement('div'); el.className = 'empty okmsg'; el.textContent = '✓ ' + msg; $('list').prepend(el); }
+// 알림은 목록 위 칸에 (목록을 다시 그려도 사라지지 않게), 12초 뒤 저절로 지움
+function libMsg(cls, msg) { const el = document.createElement('div'); el.className = cls; el.textContent = msg; $('libMsg').prepend(el); setTimeout(() => el.remove(), 12000); }
+function alertBox(msg) { libMsg('err', msg); }
+function infoBox(msg) { libMsg('okmsg', '✓ ' + msg); }
 async function redo(id, enhance) {
   stop();
   if (PAD) return;
   await api.redo(id, enhance);
   waitOpen = id; showLib(); refreshList();
 }
-function showLib() { stop(); $('libView').classList.remove('hidden'); $('playView').classList.add('hidden'); $('goLib').classList.add('hidden'); history.replaceState(null, '', '#'); }
+function showLib() { stop(); countedId = null; $('libView').classList.remove('hidden'); $('playView').classList.add('hidden'); $('goLib').classList.add('hidden'); history.replaceState(null, '', '#'); }
 
 /* ---------- 악보 열기 ---------- */
 async function openScore(id) {
   stop(); lastKey = null; lastTop = null;
+  if (!cur || cur.id !== id) countedId = null;
   $('libView').classList.add('hidden'); $('playView').classList.remove('hidden'); $('goLib').classList.remove('hidden');
   $('loading').classList.remove('hidden'); $('osmd').innerHTML = ''; $('note').classList.add('hidden');
   history.replaceState(null, '', '#' + id);
   cur = await api.get(id);
   $('title').textContent = cur.title;
+  setNavUi();
   let xml = await api.xml(id);
   if (!xml.trimStart().startsWith('<?xml')) xml = '<?xml version="1.0" encoding="UTF-8"?>\n' + xml;   // 악보 그리기 부품이 머리말을 요구함
   const k = Math.max(-6, Math.min(6, Math.round(+cur.shift || 0))), f0m = xml.match(/<fifths>\s*(-?\d+)/), f0 = f0m ? +f0m[1] : 0;
@@ -1249,6 +1549,7 @@ function loopRange() {
 }
 async function play(fromQ) {
   if (!tl || !tl.ev.length) return;
+  countPlay();
   const c = audio();
   stop(true);
   const lr = loopRange();
@@ -1847,12 +2148,12 @@ if (PAD) {
 }
 /* ---------- 파일 넣기 ---------- */
 $('openBtn').onclick = $('openBtn2').onclick = () => $('file').click();
-$('file').onchange = async () => { const fs = [...$('file').files]; $('file').value = ''; if (PAD) { for (const f of fs) await upload(f); } else if (fs[0]) upload(fs[0]); };
+$('file').onchange = async () => { const fs = [...$('file').files]; $('file').value = ''; uploadMany(fs); };
 $('goLib').onclick = () => { showLib(); refreshList(); };
 const drop = $('drop');
 document.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('over'); });
 document.addEventListener('dragleave', e => { if (!e.relatedTarget) drop.classList.remove('over'); });
-document.addEventListener('drop', async e => { e.preventDefault(); drop.classList.remove('over'); const fs = [...e.dataTransfer.files]; if (PAD) { for (const f of fs) await upload(f); } else if (fs[0]) upload(fs[0]); });
+document.addEventListener('drop', async e => { e.preventDefault(); drop.classList.remove('over'); uploadMany([...e.dataTransfer.files]); });
 
 api.version().then(v => { $('ver').textContent = 'v' + v.version + (PAD ? ' · 패드판' : ''); document.title = '수드 악보 연주 v' + v.version; }).catch(() => {});
 if (location.hash.length > 1) openScore(location.hash.slice(1)).catch(() => { showLib(); refreshList(); });
