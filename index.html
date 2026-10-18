@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="sood-mode" content="pad">
-<meta name="sood-version" content="2.2.0">
+<meta name="sood-version" content="2.2.1">
 <meta name="robots" content="noindex, nofollow">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon.png">
@@ -35,9 +35,6 @@ header .sp { flex: 1; }
 header button { background: transparent; color: #fff; border-color: #4a5268; }
 main { max-width: 1500px; margin: 0 auto; padding: 18px 20px 100px; }   /* 아래 여백 100: 수드 도우미 단추가 마지막 줄 악보를 가리지 않게 (v2.2) */
 #guideBack { font-size: 14px; padding: 5px 11px; }
-/* 수드 도우미 모듈 v1.1.0 의 겹침 막기: char 'note' 이면 창(.sg-panel)에 sg-note 이름이 붙는데, 같은 이름의 '떠오르는 음표' 움직임(투명→위로 흘러감)이 창 전체에 걸린다.
-   공통 모듈은 고치지 않고 여기서만 창 움직임을 원래(sgUp)로 되돌린다 */
-.sg-panel.sg-note { animation: sgUp .35s cubic-bezier(.2,.9,.3,1.2) !important; opacity: 1 !important; font-family: inherit; font-weight: inherit; }
 .hidden { display: none !important; }
 /* 수드 워터마크 — 수드 리듬 연습과 같은 모양 (동그란 사진 + 옅은 「수트와후드」) */
 .brand { display: flex; flex-direction: column; align-items: center; gap: 2px; margin: 4px 0 14px; }
