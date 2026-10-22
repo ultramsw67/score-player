@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="sood-mode" content="pad">
-<meta name="sood-version" content="2.2.3">
+<meta name="sood-version" content="2.2.4">
 <meta name="robots" content="noindex, nofollow">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon.png">
@@ -1407,7 +1407,9 @@ async function upload(file, autoOpen = true) {
   if (!/\.(pdf|png|jpe?g)$/i.test(file.name)) { alertBox('PDF·JPG·PNG 파일만 읽을 수 있습니다'); return; }
   showLib();
   const inst = detectInst(file.name);
-  const meta = await api.upload(file, inst);
+  let meta;
+  try { meta = await api.upload(file, inst); }                         // 서버가 꺼져 있으면(노트북 다시 켠 뒤 등) 말없이 아무 일도 안 일어나던 것
+  catch (e) { alertBox('악보를 넣지 못했습니다 — 프로그램이 꺼져 있습니다. 바탕화면 「수드 악보 연주 열기」를 다시 눌러 주세요'); return; }
   if (meta.error) { alertBox(meta.error); return; }
   if (autoOpen) waitOpen = meta.id;
   await refreshList();
